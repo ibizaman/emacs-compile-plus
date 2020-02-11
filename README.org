@@ -1,0 +1,51 @@
+[[https://github.com/ibizaman/emacs-compile-plus/workflows/CI/badge.svg]]
+
+* Goal
+
+This package replaces the stock ~compile~ with another one. After
+running ~compile~, you now get prompted for a directory defaulting to
+the ~default-directory~, then you enter the command to run. The buffer
+name will then be the concatenation of the directory and the command
+to be run. For example, running ~make -k~ in the home directory would
+result in a buffer name similar to ~*/home/ibizaman - make -k*~
+
+* Installation
+
+Clone the repo locally and ~(require emacs-compile-plus)~ or with
+~use-package~ and [[https://github.com/raxod502/straight.el][straight]]:
+
+#+BEGIN_SRC elisp
+(use-package emacs-compile-plus
+  :straight (emacs-compile-plus :type git :host github :repo "ibizaman/emacs-compile-plus" :branch "master"))
+#+END_SRC
+
+This package requires Emacs >= 25.
+
+* Usage
+
+Apart from the ~require~ snippet from previous section, there is
+nothing to do as it will automatically override the stock ~compile~
+function. So just use ~compile~ as normal.
+
+* Rationale
+
+This is of course subjective, but the stock ~compile~ function does
+not play nicely with my workflow. ~emacs-compile-plus~ enhances the
+~compile~ function to make it smoother to use. At least that's what I
+think.
+
+My first complaint with the stock ~compile~ is that there is no
+interactive way to select the folder in which to run a command. With
+this package, the first thing ~compile~ does is to ask for the
+directory to run into.
+
+My second complaint is that the buffer name is not unique enough. I
+often tend to run simultaneously multiple different commands in the
+same directory and with the stock ~compile~ the second command I run
+would overwrite the first one. For example, I run the tests in one
+compile buffer and the documentation server in a second one, both from
+the root directory of a project. The documentation says I should
+rename the first compile buffer then run the second but that's _so_
+cumbersome. Instead, this package provides a name for the compile
+buffer that's the directory name followed by the full command that's
+being run.
